@@ -40,25 +40,18 @@ public class Chaining {
          return i+min+1;     
     }
 
-
-
-
     /**Implements the hash function h(k)*/
     public int chain (int key) {
-        // TODO: implement this and change the return statement
-        return -1;
+        return ((A*key) % power2(w) >> w-r);
     }
         
-    
     /**Inserts key k into hash table. Returns the number of collisions encountered*/
     public int insertKey(int key){
-        //TODO: implement this and change the return statement
-        return -1;
-
+        int hash = chain(key); // calculate hash
+        Table.get(hash).add(0,key); // insert key at beginning of list in table
+        return Table.get(hash).size()-1; 
     }
 
-    
-    
     /**Sequentially inserts a list of keys into the HashTable. Outputs total number of collisions */
     public int insertKeyArray (int[] keyArray){
         int collision = 0;

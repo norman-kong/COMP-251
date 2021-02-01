@@ -26,7 +26,7 @@ public class Open_Addressing {
          
      }
      
-                 /** Calculate 2^w*/
+    /** Calculate 2^w*/
      public static int power2(int w) {
          return (int) Math.pow(2, w);
      }
@@ -40,14 +40,13 @@ public class Open_Addressing {
      }
         /**Implements the hash function g(k)*/
         public int probe(int key, int i) {
-            //TODO: implement this function and change the return statement.
-        return -1;
+            return ((((A*key) % power2(w) >> w-r) + i) % power2(r));
      }
-     
      
      /**Inserts key k into hash table. Returns the number of collisions encountered*/
         public int insertKey(int key){
-            //TODO : implement this and change the return statement.
+            int hash = probe(key); // calculate hash
+            
             return -1;  
         }
         
