@@ -43,11 +43,21 @@ public class Open_Addressing {
             return ((((A*key) % power2(w) >> w-r) + i) % power2(r));
      }
      
-     /**Inserts key k into hash table. Returns the number of collisions encountered*/
+     
+    /**Inserts key k into hash table. Returns the number of collisions encountered*/
         public int insertKey(int key){
-            int hash = probe(key); // calculate hash
-            
-            return -1;  
+            int hash, collisions = 0;
+
+            for (int i=0; i<m; i++) { // probing sequence: 1 to number of slots
+                hash = probe(key, i); 
+                if (Table[hash] == -1 || Table[hash] == -2) { // -2 is tombstone
+                    Table[hash] = key;
+                    break;
+                } else {
+                    collisions++;
+                }
+            }
+            return collisions;
         }
         
         /**Sequentially inserts a list of keys into the HashTable. Outputs total number of collisions */
@@ -61,8 +71,18 @@ public class Open_Addressing {
             
          /**Inserts key k into hash table. Returns the number of collisions encountered*/
         public int removeKey(int key){
-            //TODO: implement this and change the return statement
-                
-            return -1;
+            int hash, collisions = 0;
+            for (int i=0; i<m; i++) { // probing sequence: 1 to number of slots
+                hash = probe(key, i); 
+                if (Table[hash] == key) {
+                    Table[hash] = -2; // -2 is tombstone
+                    break;
+                } else if (Table[hash] == -1) { // key not found
+                    break;
+                } else { // otherwise a tombstone was found
+                    collisions++;
+                }
+            }
+            return collisions;
         }
 }
