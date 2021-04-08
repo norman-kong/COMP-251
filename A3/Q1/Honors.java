@@ -8,7 +8,7 @@ public class Honors {
 		int x, y, v, num; 
 		int color = 0; // 0 is white, 1 is grey, 2 is black
 		Integer d = Integer.MAX_VALUE; // distance to source
-		Vertex pi = null; // TODO: what is this??
+		//Vertex pi = null; // TODO: what is this??
 		//LinkedList<Vertex> adjacentVertices = ;
 
 		Vertex(int x, int y, int v, int num) {
@@ -33,7 +33,7 @@ public class Honors {
 			}
 		}
 
-
+		/*
 		// build adjacency list
 		LinkedList<LinkedList<Vertex>> adjacencyList = new LinkedList<>();
 		int N, E, S, W, current = 0;
@@ -54,6 +54,7 @@ public class Honors {
 				current++;
 			}
 		}
+		*/
 
 		//print_adjacencyList(adjacencyList);
 
@@ -62,26 +63,66 @@ public class Honors {
 		Vertex s = new Vertex(0, 0, board[0][0], 0);
 		s.color = 1;
 		s.d = 0; 
-		s.pi = null;
+		//s.pi = null;
 		q.add(s);
+
+		int N, E, S, W, x, y, tmp;
 
 		while (!q.isEmpty()) {
 			Vertex u = q.remove();
 			//System.out.println("Exploring vertex: " + u.num);
-			for (Vertex v : adjacencyList.get(u.num)) {
-				if (v.color == 0) {
-					v.color = 1;
-					v.d = u.d+1;
-					v.pi = u;
-					q.add(v);
-					//System.out.println("colouring vertex " + v.num + " grey and distance is: " + v.d);
+
+			x = u.x;
+			y = u.y;
+
+			tmp = board[x][y];
+
+			N = x - tmp;
+			E = y + tmp;
+			S = x + tmp;
+			W = y - tmp;
+
+
+			if (N >= 0) {
+
+				if (vertices[N][y].color == 0) {
+					vertices[N][y].color = 1;
+					vertices[N][y].d = u.d+1;
+					//vertices[N][y].pi = u;
+					q.add(vertices[N][y]);
+				}
+
+			}
+
+			if (E < board[0].length) {
+				if (vertices[x][E].color == 0) {
+					vertices[x][E].color = 1;
+					vertices[x][E].d = u.d+1;
+					//vertices[x][E].pi = u;
+					q.add(vertices[x][E]);
 				}
 			}
+
+			if (S < board.length) {
+				if (vertices[S][y].color == 0) {
+					vertices[S][y].color = 1;
+					vertices[S][y].d = u.d+1;
+					//vertices[S][y].pi = u;
+					q.add(vertices[S][y]);
+				}
+			}
+
+			if (W >= 0) {
+				if (vertices[x][W].color == 0) {
+					vertices[x][W].color = 1;
+					vertices[x][W].d = u.d+1;
+					//vertices[x][W].pi = u;
+					q.add(vertices[x][W]);
+				}
+			}
+
 			u.color = 2;
 		}
-
-		int prev = adjacencyList.get((board.length-1)*(board[0].length-1)).get(0).num-1;
-		//System.out.println(prev);
 
 		int answer = vertices[board.length-1][board[0].length-1].d; // get destination square (last square, bottom left)
 		if (answer == Integer.MAX_VALUE) {
