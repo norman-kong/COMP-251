@@ -5,17 +5,14 @@ import java.util.*;
 public class Honors {
 	
 	static class Vertex {
-		int x, y, v, num; 
+		int x, y, v; 
 		int color = 0; // 0 is white, 1 is grey, 2 is black
 		Integer d = Integer.MAX_VALUE; // distance to source
-		//Vertex pi = null; // TODO: what is this??
-		//LinkedList<Vertex> adjacentVertices = ;
 
-		Vertex(int x, int y, int v, int num) {
+		Vertex(int x, int y, int v) {
 			this.x = x;
 			this.y = y;
 			this.v = v;
-			this.num = num;
 		}
 	}
 
@@ -25,11 +22,14 @@ public class Honors {
 			return -1;
 		}
 
+		int length = board.length;
+		int width = board[0].length;
+
 		// store vertices in one place
-		Vertex[][] vertices = new Vertex[board.length][board[0].length];
-		for (int i=0; i<board.length; i++) {
-			for (int k=0; k<board[0].length; k++) {
-				vertices[i][k] = new Vertex(i, k, board[i][k], i*board[0].length + k);
+		Vertex[][] vertices = new Vertex[length][width];
+		for (int i=0; i<length; i++) {
+			for (int k=0; k<width; k++) {
+				vertices[i][k] = new Vertex(i, k, board[i][k]);
 			}
 		}
 
@@ -60,10 +60,9 @@ public class Honors {
 
 		Queue<Vertex> q = new LinkedList<>();
 
-		Vertex s = new Vertex(0, 0, board[0][0], 0);
+		Vertex s = new Vertex(0, 0, board[0][0]);
 		s.color = 1;
 		s.d = 0; 
-		//s.pi = null;
 		q.add(s);
 
 		int N, E, S, W, x, y, tmp;
@@ -82,16 +81,13 @@ public class Honors {
 			S = x + tmp;
 			W = y - tmp;
 
-
 			if (N >= 0) {
-
 				if (vertices[N][y].color == 0) {
 					vertices[N][y].color = 1;
 					vertices[N][y].d = u.d+1;
 					//vertices[N][y].pi = u;
 					q.add(vertices[N][y]);
 				}
-
 			}
 
 			if (E < board[0].length) {
@@ -120,26 +116,14 @@ public class Honors {
 					q.add(vertices[x][W]);
 				}
 			}
-
 			u.color = 2;
 		}
 
-		int answer = vertices[board.length-1][board[0].length-1].d; // get destination square (last square, bottom left)
+		int answer = vertices[board.length-1][board[0].length-1].d; // get destination square (last square, bottom right)
 		if (answer == Integer.MAX_VALUE) {
 			return -1;
 		} else {
 			return answer;
-		}
-	}
-
-	public static void print_adjacencyList(LinkedList<LinkedList<Vertex>> list) {
-		System.out.println("ADJACENCY LIST: ");
-		for (int i=0; i<list.size(); i++) {
-			System.out.print("vertex " + i + " : ");
-			for (int k=0; k<list.get(i).size(); k++) {
-				System.out.print(list.get(i).get(k).num + " ");
-			}
-			System.out.println();
 		}
 	}
 
@@ -173,6 +157,7 @@ public class Honors {
 		//System.out.println(answer);
 		*/
 		
+		/*
 		for (int i=1; i<=30; i++) {
 			System.out.println("testing grid number: " + i);
 			String testBoardFile = "Grid-" + i + ".in";
@@ -182,6 +167,7 @@ public class Honors {
 			int expected = sc.nextInt();
 			System.out.println("Expected answer: " + expected);
 		}
+		*/
 		
 	}
 

@@ -17,6 +17,18 @@ class Edge{
         return String.format("Edge(%s,%s,%s)",this.nodes[0],this.nodes[0],this.weight);
     }
 
+    public int getSource() {
+        return this.nodes[0];
+    }
+
+    public int getDestination() {
+        return this.nodes[1];
+    }
+
+    public Integer getWeight() {
+        return this.weight;
+    }
+
 }
 
 public class WGraph{
@@ -28,6 +40,15 @@ public class WGraph{
     private Integer destination =0;
 
     WGraph() {
+    }
+
+    // MY OWN FOR TESTING
+    WGraph(ArrayList<Edge> edges, ArrayList<Integer> nodes, int nb_nodes, Integer source, Integer destination) {
+        this.edges = edges;
+        this.nodes = nodes;
+        this.nb_nodes = nb_nodes;
+        this.source = source;
+        this.destination = destination;
     }
     
     WGraph(WGraph graph) {
