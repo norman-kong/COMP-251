@@ -14,19 +14,7 @@ class Edge{
 
     @Override
     public String toString() {
-        return String.format("Edge(%s,%s,%s)",this.nodes[0],this.nodes[0],this.weight);
-    }
-
-    public int getSource() {
-        return this.nodes[0];
-    }
-
-    public int getDestination() {
-        return this.nodes[1];
-    }
-
-    public Integer getWeight() {
-        return this.weight;
+        return String.format("Edge(%s,%s,%s)",this.nodes[0],this.nodes[1],this.weight);
     }
 
 }
@@ -102,8 +90,6 @@ public class WGraph{
             System.out.println("File not found!");
             System.exit(1);
         }
-
-
     }
     
     public void addEdge(Edge e) throws RuntimeException{
